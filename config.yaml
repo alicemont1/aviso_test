@@ -1,0 +1,35 @@
+username_file: ~/.marsrc/mars.email
+key_file:  ~/.marsrc/mars.token
+notification_engine:
+  type: etcd_rest
+  host: aviso.ecmwf.int
+  port: 443
+  https: true
+configuration_engine:
+  type: etcd_rest
+  host: aviso.ecmwf.int
+  port: 443
+  https: true
+schema_parser: ecmwf
+remote_schema: True
+auth_type: ecmwf
+
+listeners:
+  - event: dissemination
+    request:
+      destination: SCL
+      class: od
+      expver: 1
+      domain: g
+      stream: enfo
+      step: [1,2,3]
+    triggers:
+      - type: echo
+        path: /home/maes/.aviso/aviso.log
+ - event: mars
+   request:
+     class: od
+     expver: 1
+     domain: g
+     stream: enfo
+     step: [1,2,3]
