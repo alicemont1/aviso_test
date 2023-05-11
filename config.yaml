@@ -44,6 +44,6 @@ listeners:
       step: [1,2,3]
     triggers:
       - type: command
-        working_dir: aviso_test
+        working_dir: ~/aviso_test
         command: ./restart_skinnywms.sh tuv.grib
 
