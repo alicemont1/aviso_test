@@ -34,4 +34,16 @@ listeners:
       stream: enfo
       step: [1,2,3]
     triggers:
-      - type: echo
+      - type: command
+  - event: mars
+    request:
+      class: od
+      expver: 1
+      domain: g
+      stream: enfo
+      step: [1,2,3]
+    triggers:
+      - type: command
+        working_dir: examples
+        command: ./restart_skinnywms.sh tuv.grib
+
