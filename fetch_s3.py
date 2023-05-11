@@ -25,7 +25,7 @@ class S3Connect:
         try:
             with open(file_path, "wb") as f:
                 self.s3.download_fileobj(
-                    S3_BUCKET_NAME, file_path, os.join(DATA_MOUNT_POINT, f))
+                    S3_BUCKET_NAME, file_path, os.path.join(DATA_MOUNT_POINT, f))
         except FileNotFoundError:
             print("File not found")
 
