@@ -33,3 +33,5 @@ listeners:
       domain: g
       stream: enfo
       step: [1,2,3]
+    triggers:
+      - type: echo
