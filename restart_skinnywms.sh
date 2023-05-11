@@ -3,6 +3,7 @@ data_loc=$1
 
 python fetch_s3.py $data_loc
 
+echo "moving from $data_loc to $SKINNYWMS_DATA_DIR"
 mv $data_loc $SKINNYWMS_DATA_DIR
 
 IMAGE_NAME="ecmwf/skinnywms"
