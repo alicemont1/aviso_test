@@ -8,7 +8,6 @@ import sys
 S3_BUCKET_NAME = "maes-bucket"  #Fill this in 
 S3_ACCESS_KEY = os.environ.get('S3_ACCESS_KEY')
 S3_SECRET_ACCESS_KEY = os.environ.get('S3_SECRET_ACCESS_KEY')
-DATA_MOUNT_POINT = os.environ.get("DATA_MOUNT_POINT")
 S3_ENDPOINT_URL = "https://storage.ecmwf.europeanweather.cloud"  #Fill this in
 
 class S3Connect:
@@ -24,8 +23,8 @@ class S3Connect:
         # Downloading a file from the bucket
         try:
             with open(file_path, "wb") as f:
-                self.s3.download_file(
-                    S3_BUCKET_NAME, file_path, os.path.join(DATA_MOUNT_POINT, f))
+                self.s3.download_fileobj(
+                    S3_BUCKET_NAME, file_path, f)
         except FileNotFoundError:
             print("File not found")
 

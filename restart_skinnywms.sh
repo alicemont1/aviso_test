@@ -3,7 +3,7 @@ data_loc=$1
 
 python fetch_s3.py $data_loc
 
-
+mv $data_loc $SKINNYWMS_DATA_DIR
 
 IMAGE_NAME="ecmwf/skinnywms"
 
