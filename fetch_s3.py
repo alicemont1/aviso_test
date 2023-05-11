@@ -8,6 +8,7 @@ import sys
 S3_BUCKET_NAME = "maes-bucket"  #Fill this in 
 S3_ACCESS_KEY = os.environ.get('S3_ACCESS_KEY')
 S3_SECRET_ACCESS_KEY = os.environ.get('S3_SECRET_ACCESS_KEY')
+DATA_MOUNT_POINT = os.environ.get("DATA_MOUNT_POINT")
 S3_ENDPOINT_URL = "https://storage.ecmwf.europeanweather.cloud"  #Fill this in
 
 class S3Connect:
