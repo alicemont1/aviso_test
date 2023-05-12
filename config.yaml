@@ -24,15 +24,8 @@ listeners:
       step: [1,2,3]
     triggers:
       - type: command
-  - event: mars
-    request:
-      class: od
-      expver: 1
-      domain: g
-      stream: enfo
-      step: [1,2,3]
-    triggers:
-      - type: command
-        working_dir: ~/aviso_test
+        working_dir: ~/aviso_configs
         command: ./restart_skinnywms.sh tuv.grib
+      - type: log
+        path: aviso.log
 
