@@ -31,11 +31,10 @@ listeners:
     request:
       class: od
       destination: FOO
-    location: tuv.grib
     triggers:
       - type: command
         working_dir: ~/aviso_configs
-        command: ./restart_skinnywms.sh {location}
+        command: ./restart_skinnywms.sh ${location}
       - type: log
         path: aviso.log
 

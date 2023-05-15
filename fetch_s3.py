@@ -2,6 +2,14 @@ import os
 import boto3
 import sys
 import logging.config
+from dotenv import load_dotenv
+import os
+
+# Specify the path to the .env file
+dotenv_path = '.env'
+
+# Load environment variables from .env file
+load_dotenv(dotenv_path)
 
 log_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logging.ini")
 logging.config.fileConfig(log_file_path)
@@ -9,8 +17,8 @@ logger = logging.getLogger("morpheusLogger")
 
 # Initializing variables for the client
 S3_BUCKET_NAME = "maes-bucket"  #Fill this in 
-S3_ACCESS_KEY = os.environ.get('S3_ACCESS_KEY')
-S3_SECRET_ACCESS_KEY = os.environ.get('S3_SECRET_ACCESS_KEY')
+S3_ACCESS_KEY = os.getenv('S3_ACCESS_KEY')
+S3_SECRET_ACCESS_KEY = os.getenv('S3_SECRET_ACCESS_KEY')
 S3_ENDPOINT_URL = "https://storage.ecmwf.europeanweather.cloud"  #Fill this in
 
 class S3Connect:
