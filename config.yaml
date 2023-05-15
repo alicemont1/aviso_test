@@ -26,6 +26,14 @@ listeners:
       - type: command
         working_dir: ~/aviso_configs
         command: ./restart_skinnywms.sh tuv.grib
+listeners:
+  - event: flight
+  request:
+    country: Italy
+    triggers:
+      - type: command
+        working_dir: ~/aviso_configs
+        command: ./restart_skinnywms.sh tuv.grib
       - type: log
         path: aviso.log
 

@@ -1,18 +1,20 @@
 #!/bin/bash
+
+# fetching s3 data and moving it to data dir
 data_loc=$1
 
 python fetch_s3.py $data_loc
-
 echo "moving from $data_loc to $SKINNYWMS_DATA_DIR"
 mv $data_loc $SKINNYWMS_DATA_DIR
 
+# restarting skinnywms service
 IMAGE_NAME="ecmwf/skinnywms"
+SERVICE_NAME="skinnywms"
+SERVICE_STATUS=$(docker-compose ps -q "$SERVICE_NAME")
 
-CONTAINER_ID=$(docker ps -qf "ancestor=$IMAGE_NAME")
-
-if [ -n "$CONTAINER_ID" ]; then
-    docker restart $CONTAINER_ID
-    echo "Container restarted successfully."
+if [ -n "$SERVICE_STATUS" ]; then
+    docker-compose restart "$SERVICE_NAME"
+    echo "Container for service '$SERVICE_NAME' restarted successfully."
 else
-    echo "No container found with the specified image name."
+    echo "Service '$SERVICE_NAME' is not running."
 fi
