@@ -1,7 +1,11 @@
 import os
 import boto3
 import sys
+import logging.config
 
+log_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logging.ini")
+logging.config.fileConfig(log_file_path)
+logger = logging.getLogger("morpheusLogger")
 
 # Initializing variables for the client
 S3_BUCKET_NAME = "maes-bucket"  #Fill this in 
