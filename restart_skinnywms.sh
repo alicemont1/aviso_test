@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ -f "$HOME/.bashrc" ]; then
+    source "$HOME/.bashrc"
+fi
+
 # fetching s3 data and moving it to data dir
 data_loc=$1
 

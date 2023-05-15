@@ -34,7 +34,7 @@ class S3Connect:
 
 def main():
     s3_file_path = sys.argv[1]
-
+    logger.info(f"{S3_ACCESS_KEY} was loaded")
     try:
         S3Connect().fetch_file(s3_file_path)
     except Exception as e:
