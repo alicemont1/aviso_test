@@ -28,8 +28,9 @@ class S3Connect:
             with open(file_path, "wb") as f:
                 self.s3.download_fileobj(
                     S3_BUCKET_NAME, file_path, f)
+            logger.info(f"{file_path} file was downloaded to {os.environ.get('PWD')}")
         except FileNotFoundError:
-            print("File not found")
+            logger.error(f"{file_path} file not found")
 
 def main():
     s3_file_path = sys.argv[1]
