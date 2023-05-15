@@ -33,7 +33,11 @@ class S3Connect:
 
 def main():
     s3_file_path = sys.argv[1]
-    S3Connect().fetch_file(s3_file_path)
+
+    try:
+        S3Connect().fetch_file(s3_file_path)
+    except Exception as e:
+        logger.error(e)
 
 
 if __name__ == "__main__":
