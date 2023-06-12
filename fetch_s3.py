@@ -27,8 +27,8 @@ class S3Connect:
         return boto3.client(
             "s3",
             endpoint_url=S3_ENDPOINT_URL,
-            # aws_access_key_id=S3_ACCESS_KEY,
-            # aws_secret_access_key=S3_SECRET_ACCESS_KEY
+            aws_access_key_id=S3_ACCESS_KEY,
+            aws_secret_access_key=S3_SECRET_ACCESS_KEY
         )
 
     def fetch_file(self, file_path):
@@ -52,7 +52,7 @@ def main():
     
     try:
         s3_file_path = sys.argv[1]
-        # s3 = S3Connect()
+        s3 = S3Connect()
         s3.fetch_file(s3_file_path)
     except Exception as e:
         logger.error(e)

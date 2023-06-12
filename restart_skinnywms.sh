@@ -2,9 +2,17 @@
 
 # fetching s3 data and moving it to data dir
 data_loc=$1
+
+echo "$(date +'%d-%m-%Y %H:%M:%S') - INFO - Fetching '$data_loc' from s3 bucket" >> fetch_s3.log
 python fetch_s3.py $data_loc
-echo "$(date +'%d-%m-%Y %H:%M:%S') - INFO - Moving from '$data_loc' to SkinnyWMS data dir at '$SKINNYWMS_DATA_DIR'" >> fetch_s3.log
-mv $data_loc $HOME/data
+
+if [ -f "$data_loc" ]; then
+  mv "$data_loc" "$HOME/data"
+  echo "$(date +'%d-%m-%Y %H:%M:%S') - INFO - '$data_loc' was found and moved into to SkinnyWMS data dir at '$HOME/data'" >> fetch_s3.log
+else
+  echo "$(date +'%d-%m-%Y %H:%M:%S') - ERROR - '$data_loc' file does not exist. Terminating." >> fetch_s3.log
+  exit 1
+fi
 
 # restarting skinnywms service
 IMAGE_NAME="ecmwf/skinnywms"

@@ -21,3 +21,20 @@ listeners:
       destination: SCL
     triggers:
       - type: echo
+listeners:
+  - event: dissemination
+    request:
+      class: od
+      destination: SCL
+      target: E1
+      date: 20000101
+      domain: g
+      expver: 9999
+      step: 1
+      stream: enfo
+    triggers:
+      - type: command
+        working_dir: ~/aviso_configs
+        command: ./restart_skinnywms.sh ${location}
+      - type: log
+        path: aviso.log
