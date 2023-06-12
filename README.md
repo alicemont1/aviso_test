@@ -1,4 +1,4 @@
-# Aviso Skinnywms Trigger
+# SkinnyWMS Trigger
 
 
 ## Background
@@ -26,7 +26,7 @@ pip install -r frozen_requirements.txt
 
 2. Rename the .env_example file to .env and fill it with your S3 bucket credentials.
 
-3. Run the fetch_s3.py file, which is meant for standalone use, with:
+3. Run the s3_file_fetcher.py file, which is meant for standalone use, with:
 
 ```
 python fetch_s3.py <path of file on s3 bucket>

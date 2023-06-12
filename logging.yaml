@@ -1,0 +1,25 @@
+version: 1
+disable_existing_loggers: false
+formatters:
+  defaultFormatter:
+    format: '%(asctime)s - %(levelname)s - S3FileFetcher - %(message)s'
+    datefmt: '%d-%m-%Y %H:%M:%S'
+handlers:
+  error_file:
+    class: logging.FileHandler
+    level: INFO
+    formatter: defaultFormatter
+    filename: "${LOG_FILE_PATH}"
+  console:
+    class: logging.StreamHandler
+    level: INFO
+    formatter: defaultFormatter
+loggers:
+  root:
+    level: DEBUG
+    handlers: [error_file]
+  morpheusLogger:
+    level: DEBUG
+    handlers: [console, error_file]
+    qualname: morpheusLogger
+    propagate: 0

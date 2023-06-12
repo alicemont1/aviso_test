@@ -5,10 +5,22 @@ import sys
 import logging.config
 from dotenv import load_dotenv
 import os
+import yaml
 
-log_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logging.ini")
-logging.config.fileConfig(log_file_path)
-logger = logging.getLogger("morpheusLogger")
+log_file_path = os.environ.get('LOG_FILE_PATH')
+
+#Load the logging configuration from the YAML file
+with open('logging.yaml', 'r') as file:
+    config = yaml.safe_load(file)
+
+# Replace the variable placeholder in the configuration dictionary
+config['handlers']['error_file']['filename'] = log_file_path
+
+# Configure logging using the modified configuration
+logging.config.dictConfig(config)
+
+# Use the logger
+logger = logging.getLogger('morpheusLogger')
 
 # Load env file with credentials for S3 bucket
 dotenv_path = '.env'
@@ -19,7 +31,7 @@ S3_ACCESS_KEY = os.getenv('S3_ACCESS_KEY')
 S3_SECRET_ACCESS_KEY = os.getenv('S3_SECRET_ACCESS_KEY')
 S3_ENDPOINT_URL = "https://storage.ecmwf.europeanweather.cloud"
 
-class S3Connect:
+class S3FileFetcher:
     def __init__(self):
         self.s3 = self.connect()
     
@@ -31,7 +43,13 @@ class S3Connect:
             aws_secret_access_key=S3_SECRET_ACCESS_KEY
         )
     
-    def check_file_exists(self, file_path): 
+    def check_file_exists(self, file_path: str) -> bool:
+        """Checks if the file exists in the bucket.
+
+        :param file_path: Path of the file on the s3 bucket.
+        :return: True if the file is in the bucket, false otherwise.
+        """
+
         response = self.s3.list_objects(Bucket=S3_BUCKET_NAME)
         file_contents = [item["Key"] for item in response["Contents"]]
         if file_path in file_contents:
@@ -41,8 +59,11 @@ class S3Connect:
             logger.debug(file_contents)
             return False
 
-    def fetch_file(self, file_path):
-        # Downloading a file from the bucket
+    def fetch_file(self, file_path: str) -> None:
+        """Downloads a file from the s3 bucket, given a file path.
+
+        :param file_path: Path of the file on the s3 bucket.
+        """
         try:
             with open(file_path, "wb") as f:
                 self.s3.download_fileobj(
@@ -62,7 +83,7 @@ def main():
     
     try:
         s3_file_path = sys.argv[1]
-        s3 = S3Connect()
+        s3 = S3FileFetcher()
         if s3.check_file_exists(s3_file_path):
             s3.fetch_file(s3_file_path)
     except Exception as e:
