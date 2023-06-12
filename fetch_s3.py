@@ -30,6 +30,16 @@ class S3Connect:
             aws_access_key_id=S3_ACCESS_KEY,
             aws_secret_access_key=S3_SECRET_ACCESS_KEY
         )
+    
+    def check_file_exists(self, file_path): 
+        response = self.s3.list_objects(Bucket=S3_BUCKET_NAME)
+        file_contents = [item["Key"] for item in response["Contents"]]
+        if file_path in file_contents:
+            return True
+        else:
+            logger.error(f"{file_path} file not found in {S3_BUCKET_NAME} bucket")
+            logger.debug(file_contents)
+            return False
 
     def fetch_file(self, file_path):
         # Downloading a file from the bucket
@@ -53,7 +63,8 @@ def main():
     try:
         s3_file_path = sys.argv[1]
         s3 = S3Connect()
-        s3.fetch_file(s3_file_path)
+        if s3.check_file_exists(s3_file_path):
+            s3.fetch_file(s3_file_path)
     except Exception as e:
         logger.error(e)
 
