@@ -1,7 +1,11 @@
 #!/bin/bash
 
+# Get command line argument
 data_loc=$1
-export LOG_FILE_PATH="skinnywms_trigger.log"
+
+# Source the environment file
+source .env
+export LOG_FILE_PATH="$LOG_DIR/skinnywms_trigger.log"
 
 # Fetch s3 file
 echo "$(date +'%d-%m-%Y %H:%M:%S') - INFO - SkinnyWMSTrigger - Fetching '$data_loc' from s3 bucket" >> fetch_s3.log
