@@ -34,7 +34,7 @@ listeners:
       stream: enfo
     triggers:
       - type: command
-        working_dir: ~/aviso_configs
-        command: ./restart_skinnywms.sh ${location}
+        working_dir: ~/skinnywms_trigger
+        command: ./skinnywms_trigger.sh ${location}
       - type: log
         path: aviso.log

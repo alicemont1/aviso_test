@@ -8,7 +8,7 @@ source .env
 export LOG_FILE_PATH="$LOG_DIR/skinnywms_trigger.log"
 
 # Logging start
-echo "===========================================================================================================================" >> $LOG_FILE_PATH
+echo "================================================================================" >> $LOG_FILE_PATH
 
 # Fetch s3 file
 echo "$(date +'%d-%m-%Y %H:%M:%S') - INFO - SkinnyWMSTrigger - Fetching '$DATA_LOC' from s3 bucket" >> fetch_s3.log
