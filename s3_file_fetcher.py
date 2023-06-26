@@ -4,7 +4,6 @@ from botocore.exceptions import ClientError
 import sys
 import logging.config
 from dotenv import load_dotenv
-import os
 import yaml
 
 log_file_path = os.environ.get('LOG_FILE_PATH')
@@ -75,6 +74,19 @@ class S3FileFetcher:
                 logger.error(f"{file_path} file not found")
             else:
                 logger.error(f"Unexpected error: {e.response['Error']['Message']}")
+    
+    def list_files(self):
+        response = self.list_objects(Bucket=S3_BUCKET_NAME)
+        for obj in response["Contents"]:
+            print(obj["Key"])
+
+def parse_loc_arguments(loc):
+    loc = loc.lstrip("s3://")
+    bucket_name = loc.split("/")[0]
+    if bucket_name != S3_BUCKET_NAME:
+        logger.error(f"Location {bucket_name} is incorrect and do not match the configured credentials for {S3_BUCKET_NAME}.")
+    location = location = loc.lstrip("s3://" + bucket_name)
+    return location
 
 def main():
     if S3_ACCESS_KEY and S3_SECRET_ACCESS_KEY:
@@ -83,7 +95,7 @@ def main():
         logger.error(f"{S3_BUCKET_NAME} access variables are missing from env.")
     
     try:
-        s3_file_path = sys.argv[1]
+        s3_file_path = parse_loc_arguments(sys.argv[1])
         s3 = S3FileFetcher()
         if s3.check_file_exists(s3_file_path):
             s3.fetch_file(s3_file_path)
