@@ -74,11 +74,6 @@ class S3FileFetcher:
                 logger.error(f"{file_path} file not found")
             else:
                 logger.error(f"Unexpected error: {e.response['Error']['Message']}")
-    
-    def list_files(self):
-        response = self.list_objects(Bucket=S3_BUCKET_NAME)
-        for obj in response["Contents"]:
-            print(obj["Key"])
 
 def parse_loc_arguments(loc):
     loc = loc.lstrip("s3://")

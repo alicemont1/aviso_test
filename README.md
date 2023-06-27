@@ -4,7 +4,7 @@
 ## Background
 This repo is part of the End-to-end use case demonstration for the DestinE MVP.
 
-The entire repo will be cloned inside the EWC hosted VM during "setup phase". The VM setup phase is automated by the repo found in #TODO.
+The entire repo will be cloned inside the EWC hosted VM during "setup phase". The VM setup phase is automated by the repo found in https://github.com/ecmwf-projects/de-use-cases/tree/main/ewc_skinnywms.
 
 
 ## Description
