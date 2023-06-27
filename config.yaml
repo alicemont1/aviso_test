@@ -20,19 +20,6 @@ listeners:
     request:
       destination: SCL
     triggers:
-      - type: echo
-listeners:
-  - event: dissemination
-    request:
-      class: od
-      destination: SCL
-      target: E1
-      date: 20000101
-      domain: g
-      expver: 9999
-      step: 1
-      stream: enfo
-    triggers:
       - type: command
         working_dir: ~/skinnywms_trigger
         command: ./skinnywms_trigger.sh ${location}
