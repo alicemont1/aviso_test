@@ -12,7 +12,7 @@ export LOG_FILE_PATH="$LOG_DIR/skinnywms_trigger.log"
 echo "================================================================================" >> $LOG_FILE_PATH
 
 # Fetch s3 file
-echo "$(date +'%d-%m-%Y %H:%M:%S') - INFO - SkinnyWMSTrigger - Fetching '$FILENAME' from s3 bucket" >> fetch_s3.log
+echo "$(date +'%d-%m-%Y %H:%M:%S') - INFO - SkinnyWMSTrigger - Fetching '$FILENAME' from s3 bucket" >> $LOG_FILE_PATH
 python s3_file_fetcher.py $DATA_LOC
 
 # Check if file was downloaded and move it to skinnywms data dir
