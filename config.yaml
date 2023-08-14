@@ -21,7 +21,7 @@ listeners:
       destination: SCL
     triggers:
       - type: command
-        working_dir: ~/skinnywms_trigger
+        working_dir: /opt/datavisor/trigger
         command: ./skinnywms_trigger.sh ${location}
       - type: log
         path: aviso.log

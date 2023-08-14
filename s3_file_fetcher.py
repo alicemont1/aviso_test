@@ -6,7 +6,7 @@ import logging.config
 from dotenv import load_dotenv
 import yaml
 
-log_file_path = os.environ.get('LOG_FILE_PATH')
+log_file_path = os.environ.get('DATAVISOR_LOG_PATH')
 
 #Load the logging configuration from the YAML file
 with open('logging.yaml', 'r') as file:
@@ -24,7 +24,6 @@ logger = logging.getLogger('morpheusLogger')
 # Load env file with credentials for S3 bucket
 dotenv_path = '.env'
 load_dotenv(dotenv_path)
-LOG_DIR = os.getenv('LOG_DIR')
 S3_BUCKET_NAME = os.getenv('S3_BUCKET_NAME')
 S3_ACCESS_KEY = os.getenv('S3_ACCESS_KEY')
 S3_SECRET_ACCESS_KEY = os.getenv('S3_SECRET_ACCESS_KEY')

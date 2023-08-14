@@ -1,26 +1,26 @@
 #!/bin/bash
+source .env
+
+# Get the name of the task for logging purposes
+task_name="skinnywms_trigger"
 
 # Get command line argument
 DATA_LOC=$1
-FILENAME="${DATA_LOC##*/}"
-
-# Source the environment file
-source .env
-export LOG_FILE_PATH="$LOG_DIR/skinnywms_trigger.log"
+FILENAME="${DATA_LOC}"
 
 # Logging start
-echo "================================================================================" >> $LOG_FILE_PATH
+echo "================================================================================" >> $DATAVISOR_LOG_DIR
 
 # Fetch s3 file
-echo "$(date +'%d-%m-%Y %H:%M:%S') - INFO - SkinnyWMSTrigger - Fetching '$FILENAME' from s3 bucket" >> $LOG_FILE_PATH
+echo "$(date +'%d-%m-%Y %H:%M:%S') - INFO - $task_name - Fetching '$FILENAME' from s3 bucket" >> $DATAVISOR_LOG_DIR
 python s3_file_fetcher.py $DATA_LOC
 
 # Check if file was downloaded and move it to skinnywms data dir
 if [ -f "$FILENAME" ]; then
   mv "$FILENAME" "$HOME/data"
-  echo "$(date +'%d-%m-%Y %H:%M:%S') - INFO - SkinnyWMSTrigger - '$DATA_LOC' was found and moved into to SkinnyWMS data dir at '$HOME/data'" >> $LOG_FILE_PATH
+  echo "$(date +'%d-%m-%Y %H:%M:%S') - INFO - $task_name - '$DATA_LOC' was found and moved into to SkinnyWMS data dir at '$HOME/data'" >> $DATAVISOR_LOG_DIR
 else
-  echo "$(date +'%d-%m-%Y %H:%M:%S') - ERROR - SkinnyWMSTrigger - '$DATA_LOC' file does not exist. Terminating." >> $LOG_FILE_PATH
+  echo "$(date +'%d-%m-%Y %H:%M:%S') - ERROR - $task_name - '$DATA_LOC' file does not exist. Terminating." >> $DATAVISOR_LOG_DIR
   exit 1
 fi
 
@@ -30,11 +30,11 @@ SERVICE_NAME="skinnywms"
 SERVICE_STATUS=$(docker-compose ps -q "$SERVICE_NAME")
 
 if [ -n "$SERVICE_STATUS" ]; then
-    docker-compose restart "$SERVICE_NAME" 2>> $LOG_FILE_PATH
-    echo "$(date +'%d-%m-%Y %H:%M:%S') - INFO - SkinnyWMSTrigger - Container for service '$SERVICE_NAME' restarted successfully." >> $LOG_FILE_PATH
+    docker-compose restart "$SERVICE_NAME" 2>> $DATAVISOR_LOG_DIR
+    echo "$(date +'%d-%m-%Y %H:%M:%S') - INFO - SkinnyWMSTrigger - Container for service '$SERVICE_NAME' restarted successfully." >> $DATAVISOR_LOG_DIR
 
 else
-    echo "$(date +'%d-%m-%Y %H:%M:%S') - ERROR - SkinnyWMSTrigger - Service '$SERVICE_NAME' is not running." >> $LOG_FILE_PATH
+    echo "$(date +'%d-%m-%Y %H:%M:%S') - ERROR - SkinnyWMSTrigger - Service '$SERVICE_NAME' is not running." >> $DATAVISOR_LOG_DIR
 fi
 
-echo "$separator" >> $LOG_FILE_PATH
+echo "$separator" >> $DATAVISOR_LOG_DIR
