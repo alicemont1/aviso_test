@@ -1,8 +1,12 @@
 import logging.config
 import yaml
 import os
+from dotenv import load_dotenv
 
-log_file_path = os.environ.get('DATAVISOR_LOG_PATH')
+dotenv_path = os.path.join(os.getenv("HOME"), ".env")
+load_dotenv(dotenv_path)
+
+log_file_path = os.getenv('DATAVISOR_LOG_PATH')
 
 #Load the logging configuration from the YAML file
 with open('logging.yaml', 'r') as file:
