@@ -22,7 +22,7 @@ logging.config.dictConfig(config)
 logger = logging.getLogger('morpheusLogger')
 
 # Load env file with credentials for S3 bucket
-dotenv_path = '.env'
+dotenv_path = os.path.join(os.getenv("HOME"), ".env")
 load_dotenv(dotenv_path)
 S3_BUCKET_NAME = os.getenv('S3_BUCKET_NAME')
 S3_ACCESS_KEY = os.getenv('S3_ACCESS_KEY')

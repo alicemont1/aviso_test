@@ -1,18 +1,18 @@
 notification_engine:
-  host: 86.50.231.130
-  port: 2379
-  https: false
+  host: aviso.ecmwf.int
+  port: 443
+  https: true
   polling_interval: 10
 
 configuration_engine:
-  host: 86.50.231.130
-  port: 2379
-  https: false
+  host: aviso.ecmwf.int
+  port: 443
+  https: true
 
 schema_parser: ecmwf
 remote_schema: True
 auth_type: etcd
-username: root
+username: alice.sartorimonteirodebarros@ecmwf.int
 key_file: /root/.aviso/key
 
 listeners:
@@ -22,6 +22,6 @@ listeners:
     triggers:
       - type: command
         working_dir: /opt/datavisor/trigger
-        command: ./skinnywms_trigger.sh ${location}
+        command: /opt/datavisor/trigger/skinnywms_trigger.sh ${location}
       - type: log
         path: aviso.log
