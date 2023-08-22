@@ -5,20 +5,15 @@ import requests
 import json
 from pyaviso import NotificationManager
 from pyaviso.user_config import UserConfig
-# from logging_config import logger
+from logging_config import logger
 
 
 # Load env file with credentials for S3 bucket
-# dotenv_path = os.path.join(os.getenv("HOME"), ".env")
-# load_dotenv(dotenv_path)
-# S3_BUCKET_NAME = os.getenv('S3_BUCKET_NAME')
-# S3_ACCESS_KEY = os.getenv('S3_ACCESS_KEY')
-# VM_UUID = os.getenv('VM_UUID')
+dotenv_path = os.path.join(os.getenv("HOME"), ".env")
+load_dotenv(dotenv_path)
+VM_UUID = os.getenv('VM_UUID')
 
-VM_UUID = "032fca87-c92e-4d68-ba33-63938ffd672e"
 CONFIG_URL = f"http://136.156.129.120:80/api/v1/aviso-config-for-vm/{VM_UUID}"
-# CONFIG_URL = f"http://127.0.0.1:8001/api/v1/aviso-config-for-vm/{VM_UUID}"
-
 
 
 def run_aviso(aviso_config):
@@ -64,8 +59,7 @@ def fetch_configs(application_key):
         print(response.text)
 
 def main():
-    appp = sys.argv[1]
-    application_key = "d433b108608385238fee0b675f612364a06e33d76413e02f3110d0c89bac1b09"
+    application_key = sys.argv[1]
     config_dict = fetch_configs(application_key)
     run_aviso(config_dict)
 
