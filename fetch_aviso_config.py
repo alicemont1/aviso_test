@@ -29,8 +29,9 @@ def run_aviso(aviso_config):
     aviso = NotificationManager()
 
     try:
+        conf_listeners = {"listeners": aviso_config.get('listeners')}
         aviso.listen(
-            listeners=aviso_config.get('listeners'),
+            listeners=conf_listeners,
             config=user_conf,
             from_date=aviso_config.get('from_date'),
             to_date=aviso_config.get('to_date'),
