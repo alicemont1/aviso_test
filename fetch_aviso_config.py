@@ -12,8 +12,9 @@ from logging_config import logger
 dotenv_path = os.path.join(os.getenv("HOME"), ".env")
 load_dotenv(dotenv_path)
 VM_UUID = os.getenv('VM_UUID')
+DATAVISOR_SERVER_URL = os.getenv('DATAVISOR_SERVER_URL')
 
-CONFIG_URL = f"http://136.156.129.120:80/api/v1/aviso-config-for-vm/{VM_UUID}"
+CONFIG_URL = f"{DATAVISOR_SERVER_URL}/api/v1/aviso-config-for-vm/{VM_UUID}"
 
 
 def run_aviso(aviso_config):

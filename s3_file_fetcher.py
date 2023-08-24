@@ -2,32 +2,17 @@ import os
 import boto3
 from botocore.exceptions import ClientError
 import sys
-import logging.config
 from dotenv import load_dotenv
-import yaml
+from logging_config import logger
 
-log_file_path = os.environ.get('DATAVISOR_LOG_PATH')
-
-#Load the logging configuration from the YAML file
-with open('logging.yaml', 'r') as file:
-    config = yaml.safe_load(file)
-
-# Replace the variable placeholder in the configuration dictionary
-config['handlers']['error_file']['filename'] = log_file_path
-
-# Configure logging using the modified configuration
-logging.config.dictConfig(config)
-
-# Use the logger
-logger = logging.getLogger('morpheusLogger')
-
-# Load env file with credentials for S3 bucket
 dotenv_path = os.path.join(os.getenv("HOME"), ".env")
 load_dotenv(dotenv_path)
+
+# Load env file with credentials for S3 bucket
 S3_BUCKET_NAME = os.getenv('S3_BUCKET_NAME')
 S3_ACCESS_KEY = os.getenv('S3_ACCESS_KEY')
 S3_SECRET_ACCESS_KEY = os.getenv('S3_SECRET_ACCESS_KEY')
-S3_ENDPOINT_URL = "https://storage.ecmwf.europeanweather.cloud"
+S3_ENDPOINT_URL = os.getenv('S3_ENDPOINT_URL')
 
 
 class S3FileFetcher:
