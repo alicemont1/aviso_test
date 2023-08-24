@@ -13,9 +13,15 @@ dotenv_path = os.path.join(os.getenv("HOME"), ".env")
 load_dotenv(dotenv_path)
 VM_UUID = os.getenv('VM_UUID')
 DATAVISOR_SERVER_URL = os.getenv('DATAVISOR_SERVER_URL')
+AVISO_CONFIG_DIR = os.getenv('AVISO_CONFIG_DIR')
+
 
 CONFIG_URL = f"{DATAVISOR_SERVER_URL}/api/v1/aviso-config-for-vm/{VM_UUID}"
 
+def create_key_file(key):
+    aviso_key_file=f"{AVISO_CONFIG_DIR}/key"
+    with open(aviso_key_file, "w") as f:
+        f.write(key)
 
 def run_aviso(aviso_config):
     user_conf = UserConfig(
@@ -25,7 +31,7 @@ def run_aviso(aviso_config):
         remote_schema=aviso_config.get('remote_schema'),
         auth_type=aviso_config.get('auth_type'),
         username=aviso_config.get('username'),
-        key_file=aviso_config.get('key_file')
+        key_file=f"{AVISO_CONFIG_DIR}/key"
     )
     aviso = NotificationManager()
 
@@ -43,9 +49,6 @@ def run_aviso(aviso_config):
         logger.error(e)
         raise e
     
-    
-    
-
 def fetch_configs(application_key):
     headers = {
         'X-Application-Key': application_key,
@@ -63,6 +66,7 @@ def fetch_configs(application_key):
 def main():
     application_key = sys.argv[1]
     config_dict = fetch_configs(application_key)
+    create_key_file(config_dict.get("key"))
     run_aviso(config_dict)
 
 if __name__ == "__main__":
