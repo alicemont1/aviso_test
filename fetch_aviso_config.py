@@ -66,7 +66,7 @@ def fetch_configs(application_key):
 def main():
     application_key = sys.argv[1]
     config_dict = fetch_configs(application_key)
-    create_key_file(config_dict.get("key"))
+    create_key_file(config_dict.get("key_file"))
     run_aviso(config_dict)
 
 if __name__ == "__main__":
