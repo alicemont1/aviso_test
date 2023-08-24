@@ -9,7 +9,7 @@ load_dotenv(dotenv_path)
 log_file_path = os.getenv('DATAVISOR_LOG_PATH')
 
 #Load the logging configuration from the YAML file
-with open('logging.yaml', 'r') as file:
+with open('/opt/datavisor/trigger/logging.yaml', 'r') as file:
     config = yaml.safe_load(file)
 # Replace the variable placeholder in the configuration dictionary
 config['handlers']['error_file']['filename'] = log_file_path
