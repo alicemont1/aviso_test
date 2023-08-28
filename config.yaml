@@ -11,7 +11,7 @@ configuration_engine:
 
 schema_parser: ecmwf
 remote_schema: True
-auth_type: etcd
+auth_type: ecmwf
 username: alice.sartorimonteirodebarros@ecmwf.int
 key_file: /root/.aviso/key
 
