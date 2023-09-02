@@ -59,7 +59,7 @@ def run_aviso(aviso_config):
         remote_schema=aviso_config.get('remote_schema'),
         auth_type=aviso_config.get('auth_type'),
         username=aviso_config.get('user_email'),
-        # key_file=f"{AVISO_CONFIG_DIR}/key"
+        key_file=f"{AVISO_CONFIG_DIR}/key"
     )
     aviso = NotificationManager()
 
@@ -97,7 +97,7 @@ def fetch_configs(application_key):
 def main():
     application_key = sys.argv[1]
     config_dict = fetch_configs(application_key)
-    create_key_file(config_dict.get("key_file"))
+    create_key_file(config_dict.get("key"))
     run_aviso(config_dict)
 
 if __name__ == "__main__":
