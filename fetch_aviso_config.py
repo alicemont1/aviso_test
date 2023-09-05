@@ -3,7 +3,7 @@ import sys
 from dotenv import load_dotenv
 import requests
 import json
-from pyaviso import NotificationManager
+from pyaviso import NotificationManager, EventListener
 from pyaviso.user_config import UserConfig
 from logging_config import logger
 
@@ -37,12 +37,21 @@ def run_aviso(aviso_config):
         username=aviso_config.get('user_email'),
         key_file=f"{AVISO_CONFIG_DIR}/key"
     )
-    aviso = NotificationManager()
+    manager = NotificationManager()
+
+    try:
+        logger.debug("Stopping listeners...")
+        manager.listener_manager.cancel_listeners()
+        logger.info("Listeners stopped")
+    except Exception as e:
+        logger.error(f"Error while stopping the listeners, {e}")
+        logger.debug("", exc_info=True)
+        sys.exit(-1)
 
     try:
         conf_listeners = {"listeners": aviso_config.get('listeners')}
         logger.info("Running aviso listener...")
-        aviso.listen(
+        manager.listen(
             listeners=conf_listeners,
             config=user_conf,
             from_date=aviso_config.get('from_date'),
