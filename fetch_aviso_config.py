@@ -3,7 +3,7 @@ import sys
 from dotenv import load_dotenv
 import requests
 import json
-from pyaviso import NotificationManager, EventListener
+from pyaviso import NotificationManager
 from pyaviso.user_config import UserConfig
 from logging_config import logger
 
