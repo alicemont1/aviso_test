@@ -63,6 +63,7 @@ def fetch_configs(application_key):
 
     if response.status_code == 200:
         logger.info("Aviso configs were successfully fetched")
+        logger.info(response.json())
         return response.json()
     else:
         logger.error(f"Request failed with status code: {response.status_code}")
