@@ -9,13 +9,14 @@ API_URL="$DATAVISOR_SERVER_URL/api/v1/vms/$VM_UUID/push-logs"
 
 # Read the file contents into a variable
 log_contents=$(<"$$DATAVISOR_LOG_PATH")
+payload = "{'vm_uuid': $VM_UUID, 'log_contents'}"
 
 # Make the API GET call and save the response to the output file
 # curl -s -H "Authorization: Bearer $AUTH_TOKEN" "$API_URL" -o "$OUTPUT_FILE"
 response_code=$(curl -X PATCH "$API_URL" \
     -H "X-Application-Key: $APPLICATION_KEY" \
     -H "Content-Type: application/json" \
-    --data-binary "$log_contents" \
+    -d "$payload" \
     -w "%{http_code}")
 
 # Check if the response code is 200
