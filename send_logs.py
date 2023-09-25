@@ -1,8 +1,5 @@
 import requests
 import os
-import boto3
-from botocore.exceptions import ClientError
-import sys
 from dotenv import load_dotenv
 from logging_config import logger
 
