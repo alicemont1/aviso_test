@@ -17,7 +17,7 @@ def append_env(s3_configs):
     logger.info("Writing S3 vars to .env file")
     with open(dotenv_path, "a") as file:
         for key, value in s3_configs.items():
-            file.write(f'{key.upper()}={value}')
+            file.write(f'{key.upper()}={value}\n')
 
 headers = {"Content-Type": "application/json", "X-Application-Key": APPLICATION_KEY}
 response = requests.get(API_URL, headers=headers)
