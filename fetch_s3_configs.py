@@ -23,7 +23,7 @@ headers = {"Content-Type": "application/json", "X-Application-Key": APPLICATION_
 response = requests.get(API_URL, headers=headers)
 
 if response.status_code == 200:
-    append_env()
+    append_env(response.json())
     logger.info("PATCH request successful")
 else:
     logger.error("PATCH request failed with status code:", response.status_code)
