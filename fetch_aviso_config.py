@@ -15,7 +15,7 @@ VM_UUID = os.getenv('VM_UUID')
 DATAVISOR_SERVER_URL = os.getenv('DATAVISOR_SERVER_URL')
 AVISO_CONFIG_DIR = os.getenv('AVISO_CONFIG_DIR')
 
-CONFIG_URL = f"{DATAVISOR_SERVER_URL}/api/v1/aviso-config-for-vm/{VM_UUID}"
+CONFIG_URL = f"{DATAVISOR_SERVER_URL}/api/v1/vms/{VM_UUID}/aviso-configs"
 
 def create_key_file(key):
     aviso_key_file=f"{AVISO_CONFIG_DIR}/key"
