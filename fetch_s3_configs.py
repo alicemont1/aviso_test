@@ -24,6 +24,6 @@ response = requests.get(API_URL, headers=headers)
 
 if response.status_code == 200:
     append_env(response.json())
-    logger.info("PATCH request successful")
+    logger.info("Request to {API_URL} successful")
 else:
-    logger.error("PATCH request failed with status code:", response.status_code)
+    logger.error(f"Request failed with status code:{response.status_code} to {API_URL}")
