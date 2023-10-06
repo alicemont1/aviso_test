@@ -15,7 +15,7 @@ VM_UUID = os.getenv('VM_UUID')
 DATAVISOR_SERVER_URL = os.getenv('DATAVISOR_SERVER_URL')
 AVISO_CONFIG_DIR = os.getenv('AVISO_CONFIG_DIR')
 
-CONFIG_URL = f"{DATAVISOR_SERVER_URL}/api/v1/vms/{VM_UUID}/aviso-configs"
+VM_URL = f"{DATAVISOR_SERVER_URL}/api/v1/vms/{VM_UUID}"
 
 def create_key_file(key):
     aviso_key_file=f"{AVISO_CONFIG_DIR}/key"
@@ -68,7 +68,11 @@ def fetch_configs(application_key):
         'X-Application-Key': application_key,
         'Content-Type': 'application/json'
     }
-    response = requests.get(CONFIG_URL, headers=headers)
+    vm_object = requests.get(VM_URL, headers=headers)
+    vm_object = vm_object.json()
+    aviso_conf_id = vm_object.get("aviso_config")
+    aviso_config_url = f"{DATAVISOR_SERVER_URL}/api/v1/aviso-configs/{aviso_conf_id}"
+    response = requests.get(aviso_config_url, headers=headers)
 
     if response.status_code == 200:
         logger.info("Aviso configs were successfully fetched")
