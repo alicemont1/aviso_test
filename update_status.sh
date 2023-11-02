@@ -5,7 +5,7 @@ source $HOME/.env
 task_name="update_status"
 
 # Set the API endpoint URL
-API_URL="$DATAVISOR_SERVER_URL/api/v1/vms/$VM_UUID/update-vm-status"
+API_URL="$DATAVISOR_SERVER_URL/api/v1/vms/$VM_UUID/refresh-status"
 
 # Set the output file name
 OUTPUT_FILE="api_response.json"
