@@ -27,16 +27,24 @@ def create_key_file(key):
             logger.info("Aviso key file was created")
 
 def run_aviso(aviso_config):
-
-    user_conf = UserConfig(
-        notification_engine=aviso_config.get('notification_engine'),
-        configuration_engine=aviso_config.get('configuration_engine'),
-        schema_parser=aviso_config.get('schema_parser'),
-        remote_schema=aviso_config.get('remote_schema'),
-        auth_type=aviso_config.get('auth_type'),
-        username=aviso_config.get('user_email'),
-        key_file=f"{AVISO_CONFIG_DIR}/key"
-    )
+    if aviso_config.get('auth_type').lower() == "none":
+        user_conf = UserConfig(
+            notification_engine=aviso_config.get('notification_engine'),
+            configuration_engine=aviso_config.get('configuration_engine'),
+            schema_parser=aviso_config.get('schema_parser'),
+            remote_schema=aviso_config.get('remote_schema'),
+            auth_type=aviso_config.get('auth_type'),
+        )
+    else:
+        user_conf = UserConfig(
+            notification_engine=aviso_config.get('notification_engine'),
+            configuration_engine=aviso_config.get('configuration_engine'),
+            schema_parser=aviso_config.get('schema_parser'),
+            remote_schema=aviso_config.get('remote_schema'),
+            auth_type=aviso_config.get('auth_type'),
+            username=aviso_config.get('user_email'),
+            key_file=f"{AVISO_CONFIG_DIR}/key")
+    
     manager = NotificationManager()
 
     try:

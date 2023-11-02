@@ -22,10 +22,7 @@ json_data = {
 }
 
 headers = {"Content-Type": "application/json", "X-Application-Key": APPLICATION_KEY}
-response = requests.get(API_URL, json=json_data, headers=headers)
-
-with open(dotenv_path, "a") as file:
-    file.write("This is some new data.\n")
+response = requests.patch(API_URL, json=json_data, headers=headers)
 
 if response.status_code == 200:
     logger.info("PATCH request successful")
