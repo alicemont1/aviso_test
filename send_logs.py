@@ -27,4 +27,6 @@ response = requests.patch(API_URL, json=json_data, headers=headers)
 if response.status_code == 200:
     logger.info("PATCH request successful")
 else:
-    logger.error("PATCH request failed with status code:", response.status_code)
+    logger.error(f"PATCH request failed with status code: {response.status_code}")
+    logger.error(response.text)
+
