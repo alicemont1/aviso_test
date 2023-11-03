@@ -6,6 +6,7 @@ import json
 from pyaviso import NotificationManager
 from pyaviso.user_config import UserConfig
 from logging_config import logger
+from datetime import datetime
 
 
 # Load env file with credentials for S3 bucket
@@ -59,11 +60,13 @@ def run_aviso(aviso_config):
     try:
         conf_listeners = {"listeners": aviso_config.get('listeners')}
         logger.info("Running aviso listener...")
+        date_format = "%Y-%m-%dT%H:%M:%S.%fZ"
+
         manager.listen(
             listeners=conf_listeners,
             config=user_conf,
-            from_date=aviso_config.get('from_date'),
-            to_date=aviso_config.get('to_date'),
+            from_date=datetime.strptime(aviso_config.get('from_date'), date_format) if aviso_config.get('from_date') else None,
+            to_date=datetime.strptime(aviso_config.get('to_date'), date_format) if aviso_config.get('to_date') else None,
             now=aviso_config.get('now'),
             catchup=False
             )
