@@ -93,7 +93,8 @@ def fetch_configs(api_key):
 def main():
     application_key = sys.argv[1]
     config_dict = fetch_configs(application_key)
-    create_key_file(config_dict.get("key"))
+    if not config_dict.get('auth_type').lower() == "none":
+        create_key_file(config_dict.get("key"))
     run_aviso(config_dict)
 
 if __name__ == "__main__":
