@@ -71,9 +71,9 @@ def run_aviso(aviso_config):
         logger.error(e)
         raise e
     
-def fetch_configs(application_key):
+def fetch_configs(api_key):
     headers = {
-        'X-Application-Key': application_key,
+        'X-Auth': api_key,
         'Content-Type': 'application/json'
     }
     vm_object = requests.get(VM_URL, headers=headers)
