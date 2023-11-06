@@ -1,5 +1,5 @@
 #!/bin/bash
-source .env
+source /root/.env
 
 # Get the name of the task for logging purposes
 task_name="skinnywms_trigger"
