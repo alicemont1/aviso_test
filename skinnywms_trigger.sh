@@ -9,18 +9,18 @@ DATA_LOC=$1
 FILENAME="${DATA_LOC}"
 
 # Logging start
-echo "================================================================================" >> $DATAVISOR_LOG_DIR
+echo "================================================================================" >> $DATAVISOR_LOG_PATH
 
 # Fetch s3 file
-echo "$(date +'%d-%m-%Y %H:%M:%S') - INFO - $task_name - Fetching '$FILENAME' from s3 bucket" >> $DATAVISOR_LOG_DIR
+echo "$(date +'%d-%m-%Y %H:%M:%S') - INFO - $task_name - Fetching '$FILENAME' from s3 bucket" >> $DATAVISOR_LOG_PATH
 python s3_file_fetcher.py $DATA_LOC
 
 # Check if file was downloaded and move it to skinnywms data dir
 if [ -f "$FILENAME" ]; then
   mv "$FILENAME" "$HOME/data"
-  echo "$(date +'%d-%m-%Y %H:%M:%S') - INFO - $task_name - '$DATA_LOC' was found and moved into to SkinnyWMS data dir at '$HOME/data'" >> $DATAVISOR_LOG_DIR
+  echo "$(date +'%d-%m-%Y %H:%M:%S') - INFO - $task_name - '$DATA_LOC' was found and moved into to SkinnyWMS data dir at '$HOME/data'" >> $DATAVISOR_LOG_PATH
 else
-  echo "$(date +'%d-%m-%Y %H:%M:%S') - ERROR - $task_name - '$DATA_LOC' file does not exist. Terminating." >> $DATAVISOR_LOG_DIR
+  echo "$(date +'%d-%m-%Y %H:%M:%S') - ERROR - $task_name - '$DATA_LOC' file does not exist. Terminating." >> $DATAVISOR_LOG_PATH
   exit 1
 fi
 
@@ -30,11 +30,11 @@ SERVICE_NAME="skinnywms"
 SERVICE_STATUS=$(docker-compose ps -q "$SERVICE_NAME")
 
 if [ -n "$SERVICE_STATUS" ]; then
-    docker-compose restart "$SERVICE_NAME" 2>> $DATAVISOR_LOG_DIR
-    echo "$(date +'%d-%m-%Y %H:%M:%S') - INFO - SkinnyWMSTrigger - Container for service '$SERVICE_NAME' restarted successfully." >> $DATAVISOR_LOG_DIR
+    docker-compose restart "$SERVICE_NAME" 2>> $DATAVISOR_LOG_PATH
+    echo "$(date +'%d-%m-%Y %H:%M:%S') - INFO - SkinnyWMSTrigger - Container for service '$SERVICE_NAME' restarted successfully." >> $DATAVISOR_LOG_PATH
 
 else
-    echo "$(date +'%d-%m-%Y %H:%M:%S') - ERROR - SkinnyWMSTrigger - Service '$SERVICE_NAME' is not running." >> $DATAVISOR_LOG_DIR
+    echo "$(date +'%d-%m-%Y %H:%M:%S') - ERROR - SkinnyWMSTrigger - Service '$SERVICE_NAME' is not running." >> $DATAVISOR_LOG_PATH
 fi
 
-echo "$separator" >> $DATAVISOR_LOG_DIR
+echo "$separator" >> $DATAVISOR_LOG_PATH
