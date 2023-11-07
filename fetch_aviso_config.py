@@ -60,7 +60,7 @@ def run_aviso(aviso_config):
     try:
         conf_listeners = {"listeners": aviso_config.get('listeners')}
         logger.info("Running aviso listener...")
-        date_format = "%Y-%m-%dT%H:%M:%S.%fZ"
+        date_format = "%Y-%m-%dT%H:%M:%SZ"
 
         manager.listen(
             listeners=conf_listeners,
