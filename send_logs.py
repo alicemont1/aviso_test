@@ -30,7 +30,7 @@ with open(DATAVISOR_LOG_PATH, "r") as file:
 
     if response.status_code == 200:
         logger.info("Log PATCH request successful")
-        file.write("") # clear content in the file
+        file.truncate() # clear content in the file
         backup_log(log_content)
     else:
         logger.error(f"Log PATCH request failed with status code: {response.status_code}")
