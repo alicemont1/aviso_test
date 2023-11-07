@@ -19,7 +19,7 @@ def backup_log(log_content):
     with open(DATAVISOR_LOG_PATH_BKP, 'a') as target_file:
         target_file.write(log_content)
 
-with open(DATAVISOR_LOG_PATH, "r") as file:
+with open(DATAVISOR_LOG_PATH, "r+") as file:
     log_content = file.read()
     json_data = {
         "vm_uuid_id": VM_UUID,
@@ -30,7 +30,7 @@ with open(DATAVISOR_LOG_PATH, "r") as file:
 
     if response.status_code == 200:
         logger.info("Log PATCH request successful")
-        file.truncate() # clear content in the file
+        file.truncate(0) # clear content in the file
         backup_log(log_content)
     else:
         logger.error(f"Log PATCH request failed with status code: {response.status_code}")
