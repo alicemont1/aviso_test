@@ -19,25 +19,31 @@ def backup_log(log_content):
     with open(DATAVISOR_LOG_PATH_BKP, 'a') as target_file:
         target_file.write(log_content)
 
-with open(DATAVISOR_LOG_PATH, "r+") as file:
-    log_content = file.read()
+def patch_log(log_content):
     json_data = {
-        "vm_uuid_id": VM_UUID,
-        "logs": log_content,
-    }
+            "vm_uuid_id": VM_UUID,
+            "logs": log_content,
+        }
     headers = {"Content-Type": "application/json", "X-Application-Key": APPLICATION_KEY}
     response = requests.patch(API_URL, json=json_data, headers=headers)
+    return response
 
-    if response.status_code == 200:
-        logger.info("Log PATCH request successful")
-        file.truncate(0) # clear content in the file
-        backup_log(log_content)
-    else:
-        logger.error(f"Log PATCH request failed with status code: {response.status_code}")
-        logger.error(response.text)
+def main():
+    with open(DATAVISOR_LOG_PATH, "r+") as file:
+        log_content = file.read()
+        response = patch_log(log_content)
+
+        if response.status_code == 200:
+            logger.info("Log PATCH request successful")
+            file.truncate(0) # clear content in the file
+            backup_log(log_content)
+        else:
+            logger.error(f"Log PATCH request failed with status code: {response.status_code}")
+            logger.error(response.text)
 
 
-
+if __name__ == "__main__":
+    main()
 
 
 
