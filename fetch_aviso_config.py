@@ -16,6 +16,8 @@ load_dotenv(dotenv_path)
 VM_UUID = os.getenv('VM_UUID')
 DATAVISOR_SERVER_URL = os.getenv('DATAVISOR_SERVER_URL')
 AVISO_CONFIG_DIR = os.getenv('AVISO_CONFIG_DIR')
+DATAVISOR_TRIGGER_CONF_DIR = os.getenv('DATAVISOR_TRIGGER_CONF_DIR')
+
 
 VM_URL = f"{DATAVISOR_SERVER_URL}/api/v1/vms/{VM_UUID}"
 
@@ -29,9 +31,9 @@ def create_key_file(key):
             logger.info("Aviso key file was created")
 
 def call_trigger(notification):
-    location = notification['request']['location']
-    logger.info()
-    subprocess.call(['sh', './skinnywms_trigger.sh', location])
+    # location = notification['request']['location']
+    logger.info(notification)
+    # subprocess.call([f'{DATAVISOR_TRIGGER_CONF_DIR}/skinnywms_trigger.sh', location])
 
 def run_aviso(aviso_config):
     if aviso_config.get('auth_type').lower() == "none":
