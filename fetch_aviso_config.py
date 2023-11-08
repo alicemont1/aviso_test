@@ -32,7 +32,7 @@ def create_key_file(key):
 
 def call_trigger(notification):
     # location = notification['request']['location']
-    logger.info(notification)
+    logger.info(f"The notification received is \n f'{notification}")
     # subprocess.call([f'{DATAVISOR_TRIGGER_CONF_DIR}/skinnywms_trigger.sh', location])
 
 def run_aviso(aviso_config):
