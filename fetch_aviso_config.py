@@ -62,7 +62,7 @@ def run_aviso(aviso_config):
     try:
         final_listener = []
         for listener in aviso_config.get('listeners'):
-            listener.extend([{"triggers": [{"type": "command_trigger", "command_trigger": "./skinnywms_trigger.sh ${location}"}]}])
+            listener.update([{"triggers": [{"type": "command_trigger", "command_trigger": "./skinnywms_trigger.sh ${location}"}]}])
             final_listener.append(listener)
         conf_listeners = {"listeners": final_listener}
         logger.info("Running aviso listener...")
