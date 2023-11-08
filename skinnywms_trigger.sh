@@ -18,8 +18,8 @@ python s3_file_fetcher.py $DATA_LOC
 
 # Check if file was downloaded and move it to skinnywms data dir
 if [ -f "$FILENAME" ]; then
-  mv "$FILENAME" "$HOME/data"
-  echo "$(date +'%d-%m-%Y %H:%M:%S') - INFO - $task_name - '$DATA_LOC' was found and moved into to SkinnyWMS data dir at '$HOME/data'" >> $DATAVISOR_LOG_PATH
+  mv "$FILENAME" "$DATAVISOR_BASE_DIR/data"
+  echo "$(date +'%d-%m-%Y %H:%M:%S') - INFO - $task_name - '$DATA_LOC' was found and moved into to SkinnyWMS data dir at '$DATAVISOR_BASE_DIR/data'" >> $DATAVISOR_LOG_PATH
 else
   echo "$(date +'%d-%m-%Y %H:%M:%S') - ERROR - $task_name - '$DATA_LOC' file does not exist. Terminating." >> $DATAVISOR_LOG_PATH
   exit 1
