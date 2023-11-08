@@ -31,7 +31,7 @@ SERVICE_NAME="skinnywms"
 SERVICE_STATUS=$(docker-compose ps -q "$SERVICE_NAME")
 
 if [ -n "$SERVICE_STATUS" ]; then
-    docker-compose restart "$SERVICE_NAME" 2>> $DAgit aTAVISOR_LOG_PATH
+    docker-compose restart "$SERVICE_NAME" 2>> $DATAVISOR_LOG_PATH
     echo "$(date +'%d-%m-%Y %H:%M:%S') - INFO - SkinnyWMSTrigger - Container for service '$SERVICE_NAME' restarted successfully." >> $DATAVISOR_LOG_PATH
 
 else
