@@ -64,7 +64,7 @@ def parse_loc_arguments(loc):
     bucket_name = loc.split("/")[0]
     if bucket_name != S3_BUCKET_NAME:
         logger.error(f"Location {bucket_name} is incorrect and do not match the configured credentials for {S3_BUCKET_NAME}.")
-    location = location = loc.lstrip("s3://" + bucket_name)
+    location = loc.lstrip("s3://" + bucket_name)
     return location
 
 def main():
