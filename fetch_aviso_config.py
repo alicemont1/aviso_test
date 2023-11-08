@@ -7,6 +7,7 @@ from pyaviso import NotificationManager
 from pyaviso.user_config import UserConfig
 from logging_config import logger
 from datetime import datetime
+import subprocess
 
 
 # Load env file with credentials for S3 bucket
@@ -26,6 +27,7 @@ def create_key_file(key):
         with open(aviso_key_file, "w") as f:
             f.write(key)
             logger.info("Aviso key file was created")
+
 
 def run_aviso(aviso_config):
     if aviso_config.get('auth_type').lower() == "none":
@@ -58,7 +60,11 @@ def run_aviso(aviso_config):
         sys.exit(-1)
 
     try:
-        conf_listeners = {"listeners": aviso_config.get('listeners')}
+        final_listener = []
+        for listener in aviso_config.get('listeners'):
+            listener.extend(["triggers": [{"type": "command_trigger", "command_trigger": "./skinnywms_trigger.sh ${location}"}]])
+            final_listener.append(listener)
+        conf_listeners = {"listeners": final_listener}
         logger.info("Running aviso listener...")
         date_format = "%Y-%m-%dT%H:%M:%SZ"
 
