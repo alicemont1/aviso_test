@@ -31,9 +31,9 @@ def create_key_file(key):
             logger.info("Aviso key file was created")
 
 def call_trigger(notification):
-    # location = notification['request']['location']
+    location = notification['location']
     logger.info(f"The notification received is \n {notification}")
-    # subprocess.call([f'{DATAVISOR_TRIGGER_CONF_DIR}/skinnywms_trigger.sh', location])
+    subprocess.call([f'{DATAVISOR_TRIGGER_CONF_DIR}/skinnywms_trigger.sh', location])
 
 def run_aviso(aviso_config):
     if aviso_config.get('auth_type').lower() == "none":
