@@ -28,6 +28,10 @@ def create_key_file(key):
             f.write(key)
             logger.info("Aviso key file was created")
 
+def call_trigger(notification):
+    location = notification['request']['location']
+    logger.info()
+    subprocess.call(['sh', './skinnywms_trigger.sh', location])
 
 def run_aviso(aviso_config):
     if aviso_config.get('auth_type').lower() == "none":
@@ -62,7 +66,8 @@ def run_aviso(aviso_config):
     try:
         final_listener = []
         for listener in aviso_config.get('listeners'):
-            listener.update({"triggers": [{"type": "command_trigger", "command_trigger": "./skinnywms_trigger.sh ${location}"}]})
+            listener.pop('triggers')
+            listener.update({"triggers": [{"type": "function", "function": call_trigger}]})
             final_listener.append(listener)
         conf_listeners = {"listeners": final_listener}
         logger.info("Running aviso listener...")
