@@ -1,18 +1,19 @@
 #!/bin/bash
-source /root/.env
+source $HOME/.env
 
 # Get the name of the task for logging purposes
 task_name="skinnywms_trigger"
 
 # Get command line argument
 DATA_LOC=$1
-FILENAME="${DATA_LOC}"
+S3_URL="s3://$S3_BUCKET_NAME/$DATA_LOC"
+FILENAME=$(basename "$S3_URL")
 
 # Logging start
 echo "================================================================================" >> $DATAVISOR_LOG_PATH
 
 # Fetch s3 file
-echo "$(date +'%d-%m-%Y %H:%M:%S') - INFO - $task_name - Fetching '$FILENAME' from s3 bucket" >> $DATAVISOR_LOG_PATH
+echo "$(date +'%d-%m-%Y %H:%M:%S') - INFO - $task_name - Fetching '$DATA_LOC' from s3 bucket" >> $DATAVISOR_LOG_PATH
 python s3_file_fetcher.py $DATA_LOC
 
 # Check if file was downloaded and move it to skinnywms data dir
@@ -30,7 +31,7 @@ SERVICE_NAME="skinnywms"
 SERVICE_STATUS=$(docker-compose ps -q "$SERVICE_NAME")
 
 if [ -n "$SERVICE_STATUS" ]; then
-    docker-compose restart "$SERVICE_NAME" 2>> $DATAVISOR_LOG_PATH
+    docker-compose restart "$SERVICE_NAME" 2>> $DAgit aTAVISOR_LOG_PATH
     echo "$(date +'%d-%m-%Y %H:%M:%S') - INFO - SkinnyWMSTrigger - Container for service '$SERVICE_NAME' restarted successfully." >> $DATAVISOR_LOG_PATH
 
 else
