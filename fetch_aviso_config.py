@@ -31,7 +31,6 @@ def create_key_file(key):
             logger.info("Aviso key file was created")
 
 def call_trigger(notification):
-    logger.info("==========================================================================================")
     location = notification['location']
     # logger.info(f"The notification received is \n {notification}")
     subprocess.call([f'{DATAVISOR_TRIGGER_CONF_DIR}/skinnywms_trigger.sh', location])
