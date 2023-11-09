@@ -53,7 +53,7 @@ def run_aviso(aviso_config):
             auth_type=aviso_config.get('auth_type'),
             username=aviso_config.get('user_email'),
             key_file=f"{AVISO_CONFIG_DIR}/key")
-    
+    logger.info("==========================================================================================")
     manager = NotificationManager()
 
     try:
@@ -107,7 +107,6 @@ def fetch_configs(api_key):
         logger.error(f"Error Response Body:{response.text}")
 
 def main():
-    logger.info("==========================================================================================")
     application_key = sys.argv[1]
     config_dict = fetch_configs(application_key)
     if not config_dict.get('auth_type').lower() == "none":

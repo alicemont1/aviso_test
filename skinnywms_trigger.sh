@@ -36,5 +36,3 @@ if [ -n "$SERVICE_STATUS" ]; then
 else
     echo "$(date +'%d-%m-%Y %H:%M:%S') - ERROR - SkinnyWMSTrigger - Service '$SERVICE_NAME' is not running." >> $DATAVISOR_LOG_PATH
 fi
-
-echo "$separator" >> $DATAVISOR_LOG_PATH
