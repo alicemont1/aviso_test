@@ -19,4 +19,4 @@ config['handlers']['error_file']['filename'] = log_file_path
 logging.config.dictConfig(config)
 
 # Use the logger
-logger = logging.getLogger('root')
+logger = logging.getLogger('morpheusLogger')
