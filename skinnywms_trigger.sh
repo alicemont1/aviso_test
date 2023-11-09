@@ -39,4 +39,4 @@ else
     echo "$(date +'%d-%m-%Y %H:%M:%S') - ERROR - SkinnyWMSTrigger - Service '$SERVICE_NAME' is not running." >> $DATAVISOR_LOG_PATH
 fi
 
-echo "================================================================================" >> $DATAVISOR_LOG_PATH
+echo "==================================================================================================" >> $DATAVISOR_LOG_PATH
