@@ -31,6 +31,7 @@ def create_key_file(key):
             logger.info("Aviso key file was created")
 
 def call_trigger(notification):
+    logger.info("==========================================================================================")
     location = notification['location']
     # logger.info(f"The notification received is \n {notification}")
     subprocess.call([f'{DATAVISOR_TRIGGER_CONF_DIR}/skinnywms_trigger.sh', location])
@@ -53,7 +54,6 @@ def run_aviso(aviso_config):
             auth_type=aviso_config.get('auth_type'),
             username=aviso_config.get('user_email'),
             key_file=f"{AVISO_CONFIG_DIR}/key")
-    logger.info("==========================================================================================")
     manager = NotificationManager()
 
     try:
