@@ -74,8 +74,7 @@ def run_aviso(aviso_config):
         conf_listeners = {"listeners": final_listener}
         logger.info("Running aviso listener...")
         date_format = "%Y-%m-%dT%H:%M:%SZ"
-        
-        logger.info("==========================================================================================")
+
         manager.listen(
             listeners=conf_listeners,
             config=user_conf,
@@ -108,6 +107,7 @@ def fetch_configs(api_key):
         logger.error(f"Error Response Body:{response.text}")
 
 def main():
+    logger.info("==========================================================================================")
     application_key = sys.argv[1]
     config_dict = fetch_configs(application_key)
     if not config_dict.get('auth_type').lower() == "none":
