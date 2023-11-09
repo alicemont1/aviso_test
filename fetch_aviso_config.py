@@ -31,7 +31,6 @@ def create_key_file(key):
             logger.info("Aviso key file was created")
 
 def call_trigger(notification):
-    logger.info("====================================================================================================")
     location = notification['location']
     # logger.info(f"The notification received is \n {notification}")
     subprocess.call([f'{DATAVISOR_TRIGGER_CONF_DIR}/skinnywms_trigger.sh', location])
@@ -75,7 +74,8 @@ def run_aviso(aviso_config):
         conf_listeners = {"listeners": final_listener}
         logger.info("Running aviso listener...")
         date_format = "%Y-%m-%dT%H:%M:%SZ"
-
+        
+        logger.info("==========================================================================================")
         manager.listen(
             listeners=conf_listeners,
             config=user_conf,

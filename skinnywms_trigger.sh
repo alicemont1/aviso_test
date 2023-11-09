@@ -8,6 +8,8 @@ task_name="skinnywms_trigger"
 DATA_LOC=$1
 S3_URL="s3://$S3_BUCKET_NAME/$DATA_LOC"
 FILENAME=$(basename "$S3_URL")
+echo "$(date +'%d-%m-%Y %H:%M:%S') - INFO - $task_name - '$FILENAME' is the filename" >> $DATAVISOR_LOG_PATH
+
 
 # Fetch s3 file
 echo "$(date +'%d-%m-%Y %H:%M:%S') - INFO - $task_name - Fetching '$DATA_LOC' from s3 bucket" >> $DATAVISOR_LOG_PATH
