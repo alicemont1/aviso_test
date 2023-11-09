@@ -1,11 +1,11 @@
 [
   {
     "styles": [
-      "red_lines"
+      "wind"
     ],
     "match": [
       {
-        "shortName": "lsmgrd"
+        "shortName": "10u/10v"
       }
     ]
   }

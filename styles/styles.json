@@ -1,6 +1,17 @@
 {
-    "red_lines" : {
-        "contour" : "on",
-        "contour_line_colour" : "red"
+    "wind": {
+        "wind_field_type": "arrows",
+        "wind_arrow_unit_velocity": 20,
+        "wind_arrow_min_speed": 0,
+        "wind_thinning_factor": 2,
+        "wind_advanced_method": "on",
+        "wind_advanced_colour_selection_type": "interval",
+        "wind_advanced_colour_max_value": 20,
+    	"wind_advanced_colour_min_value": 0,
+	    "wind_advanced_colour_level_interval": 1,
+        "wind_advanced_colour_table_colour_method": "calculate",
+        "wind_advanced_colour_direction": "clockwise",
+        "wind_advanced_colour_min_level_colour": "turquoise",
+        "wind_advanced_colour_max_level_colour": "purple_red"
     }
 }
