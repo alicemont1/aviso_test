@@ -29,6 +29,7 @@ IMAGE_NAME="ecmwf/skinnywms"
 SERVICE_NAME="skinnywms"
 SERVICE_STATUS=$(docker-compose ps -q "$SERVICE_NAME")
 
+cd $DATAVISOR_BASE_DIR
 docker-compose restart "$SERVICE_NAME" 2>> $DATAVISOR_LOG_PATH
 
 # if [ -n "$SERVICE_STATUS" ]; then
